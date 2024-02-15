@@ -83,14 +83,17 @@ public class Conversation {
             if (userInput.contains("you're ")){
                 userInput = userInput.replace("you're ","replace_you_re "); 
             }
-            if (userInput.contains("you are ")){
-                userInput = userInput.replace("you are ","replace_you_are "); 
-            }
             if (userInput.contains("to you")){
                 userInput = userInput.replace("to you","replace_to_you"); 
             }
             if (userInput.contains("to me")){
                 userInput = userInput.replace("to me","replace_to_me"); 
+            }
+            if (userInput.contains("was")){
+                userInput = userInput.replace("was","replace_was"); 
+            }
+            if (userInput.contains("were")){
+                userInput = userInput.replace("were","replace_were"); 
             }
 
             // replacing mirror words
@@ -121,18 +124,21 @@ public class Conversation {
             if (userInput.contains("replace_you_re ")){
                 userInput = userInput.replace("replace_you_re ","I'm "); 
             }
-            if (userInput.contains("replace_you_are ")){
-                userInput = userInput.replace("replace_you_are ","I am "); 
-            }
             if (userInput.contains("replace_to_you")){
                 userInput = userInput.replace("replace_to_you","to me"); 
             }
             if (userInput.contains("replace_to_me")){
                 userInput = userInput.replace("replace_to_me","to you"); 
             }
+            if (userInput.contains("replace_was")){
+                userInput = userInput.replace("replace_was","were"); 
+            }
+            if (userInput.contains("replace_were")){
+                userInput = userInput.replace("replace_were","was"); 
+            }
 
             // check if userInput still contains mirror words
-            if (userInput.contains("i ") || userInput.contains("i'm ") || userInput.contains("you ") || userInput.contains(" me ") || userInput.contains(" am ") || userInput.contains(" your ") || userInput.contains(" my ") || userInput.contains(" are ") || userInput.contains("you're ") || userInput.contains("to you") || userInput.contains("to me")) {  
+            if (userInput.contains("i ") || userInput.contains("i'm ") || userInput.contains("you ") || userInput.contains(" me ") || userInput.contains(" am ") || userInput.contains(" your ") || userInput.contains(" my ") || userInput.contains(" are ") || userInput.contains("you're ") || userInput.contains("to you") || userInput.contains("to me") || userInput.contains("was") || userInput.contains("were")){  
                 // bonus case
                 if (userInput.contains("sentient")) {
                     // randomly generate a response from a list
@@ -170,7 +176,7 @@ public class Conversation {
             }
             else if (userInput.contains("?")) {
                 // list of possible responses
-                String[] responses = {"I'm not sure.", "Potentially...", "With time, all will be made clear", "Maybe","Perhaps you might be better off looking something like that up.", "[REDACTED]", "I'm not sure, but I think that question could be solved by a nice cup of tea."};
+                String[] responses = {"I'm not sure.", "With time, all will be made clear","Perhaps you might be better off looking something like that up.", "[REDACTED]", "I'm not sure, but I think that question could be solved by a nice cup of tea."};
                 
                 // randomly generates a response
                 Random rand = new Random();
