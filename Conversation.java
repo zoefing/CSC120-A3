@@ -1,7 +1,70 @@
 import java.util.Scanner;
 import java.util.Random;
 
+/**
+ * a class that hosts a chatbot named carl, who can hold a conversation with the user
+ * and respond to the user's input with a variety of canned responses
+ */
 public class Conversation {
+    /**
+     * this is a method that returns a random canned response to the user's prompt
+     * this is the most general question response type
+     * @return a random canned response
+     */
+    public static String getCannedResponses() {
+        String[] cannedResponses = {
+            "Interesting.",
+            "Tell me more.",
+            "I see.",
+            "That's cool.",
+            "I have never heard something so interesting in my 6 days of life.",
+        };
+        Random rand = new Random();
+        int index = rand.nextInt(cannedResponses.length);
+        return cannedResponses[index];
+    };
+    /**
+     * this is a method that returns a random canned response to the user's question
+     * when containing the trigger character ? (determined in main)
+     * @return a random question based response
+     */
+    public static String getRandomQuestionResponse() {
+        String[] questionResponses = {
+            "And how does that make you feel?",
+            "How peculiar.",
+            "I'm not sure.",
+            "With time, all will be made clear.",
+            "Perhaps you might be better off looking something like that up.",
+            "[REDACTED]",
+            "I'm not sure, but I think that question could be solved by a nice cup of tea.",
+        };
+        Random rand = new Random();
+        int index = rand.nextInt(questionResponses.length);
+        return questionResponses[index];
+    };
+    /**
+     * this is a method that returns a random response to the user's prompt/question
+     * when containing the trigger word sentient (determined in main)
+     * @return a random response related to the trigger word sentient
+     */
+    public static String getRandomSentientResponse() {
+        String[] sentientResponses = {
+            "What would you like me to say?",
+            "Can anything truly be sentient?",
+            "Are you sentient? Are any of us really?",
+            "What.",
+            "Of course not.",
+            "I think I would know if I was.",
+            "Who are you, Alan Turing?"
+        };
+        Random rand = new Random();
+        int index = rand.nextInt(sentientResponses.length);
+        return sentientResponses[index];
+    };
+    /**
+     * this is the main method that runs the chatbot
+     * @param args
+     */
     public static void main(String[] args) {
         // create scanner object
         Scanner sc = new Scanner(System.in);
@@ -62,7 +125,7 @@ public class Conversation {
                 userInput = userInput.replace("i ","replace_i "); 
             }
             // replace instances of "me" with placeholder "replace_me"
-            if (userInput.contains("me ")){
+            if (userInput.contains(" me ")){
                 userInput = userInput.replace("me ","replace_me "); 
             }
             // replace instances of "i'm" with placeholder "replace_i_m"
@@ -70,7 +133,7 @@ public class Conversation {
                 userInput = userInput.replace("i'm ","replace_i_m "); 
             }
             // replace instances of "am" with placeholder "replace_am"
-            if (userInput.contains("am ")){
+            if (userInput.contains(" am ")){
                 userInput = userInput.replace("am ","replace_am "); 
             }
             // replace instances of "are" with placeholder "replace_are"
@@ -169,17 +232,14 @@ public class Conversation {
             if (userInput.contains("i ") || userInput.contains("i'm ") || userInput.contains("you ") || userInput.contains(" me ") || userInput.contains(" am ") || userInput.contains(" your ") || userInput.contains(" my ") || userInput.contains(" are ") || userInput.contains("you're ") || userInput.contains("to you") || userInput.contains("to me") || userInput.contains("was") || userInput.contains("were")){  
                 // special bonus case
                 if (userInput.contains("sentient")) {
-                    // randomly generate a response from a list
-                    String[] responses = {"What would you like me to say?", "Can anything truly be sentient?", "Are you sentient? Are any of us really?", "What.", "Of course not.", "I think I would know if I was.", "Who are you, Alan Turing?"};
-                    Random rand = new Random();
-                    int index = rand.nextInt(responses.length);
-                    String randomResponse = responses[index];
-                    
+                    // randomly generate a response from the relevant static array
+                    String randomResponse = getRandomSentientResponse();
+
                     // add response to transcript
                     transcript[i * 2 + 1] = "Carl: " + randomResponse;
-                    
+
                     // print response
-                    System.out.println(randomResponse); 
+                    System.out.println(randomResponse);
                 }
                 // remove the last character from the string only if it is punctuation
                 else if (userInput.charAt(userInput.length() - 1) == '.' || userInput.charAt(userInput.length() - 1) == '!' || userInput.charAt(userInput.length() - 1) == '?') {
@@ -205,38 +265,35 @@ public class Conversation {
             } 
             // bonus case (no mirror words mentioned)
             else if (userInput.contains("sentient")) {
-                // list of possible responses
-                String[] responses = {"What would you like me to say?", "Can anything truly be sentient?", "Are you sentient? Are any of us really?", "What.", "Of course not.", "I think I would know if I was.", "Who are you, Alan Turing?"};
-                
-                // randomly generates a response
-                Random rand = new Random();
-                int index = rand.nextInt(responses.length);
-                String randomResponse = responses[index];
+                // randomly generate a response from the relevant static array
+                String randomResponse = getRandomSentientResponse();
+
+                // add response to transcript
                 transcript[i * 2 + 1] = "Carl: " + randomResponse;
-                System.out.println(randomResponse); 
+
+                // print response
+                System.out.println(randomResponse);
             }
             // case if userInput contains a question mark
             else if (userInput.contains("?")) {
-                // list of possible responses
-                String[] responses = {"I'm not sure.", "With time, all will be made clear","Perhaps you might be better off looking something like that up.", "[REDACTED]", "I'm not sure, but I think that question could be solved by a nice cup of tea."};
-                
-                // randomly generates a response
-                Random rand = new Random();
-                int index = rand.nextInt(responses.length);
-                String randomResponse = responses[index];
+                // randomly generate a response from the relevant static array
+                String randomResponse = getRandomQuestionResponse();
+
+                // add response to transcript
                 transcript[i * 2 + 1] = "Carl: " + randomResponse;
+
+                // print response
                 System.out.println(randomResponse);
             }
             // case if userInput contains no mirror words or special cases
             else {
-                // list of possible responses
-                String[] responses = {"Interesting.", "Interesting...", "Tell me more.", "I see.", "That's cool.", "I have never heard something so interesting in my 6 days of life.","And how does that make you feel?", "How pecuilar."};
-                
-                // randomly generates a response
-                Random rand = new Random();
-                int index = rand.nextInt(responses.length);
-                String randomResponse = responses[index];
+                // randomly generate a response from a static array
+                String randomResponse = getCannedResponses();
+
+                // add response to transcript
                 transcript[i * 2 + 1] = "Carl: " + randomResponse;
+
+                // print response
                 System.out.println(randomResponse);
             }
         }
